@@ -17,6 +17,11 @@ function university_theme_setup() {
 
     function university_adjust_queries($query) {
         if(!is_admin() && is_post_type_archive('program') && $query->is_main_query()) {
+            // We don't want to limit the number of programs displayed on the programs page.
+            // We want to display all programs in ascending order by title.
+            $query->set('post_type', 'program');
+            $query->set('order', 'ASC');
+            $query->set('orderby', 'title');
             $query->set('posts_per_page', -1);
         }
         if(!is_admin() && is_post_type_archive('event') && $query->is_main_query()) {

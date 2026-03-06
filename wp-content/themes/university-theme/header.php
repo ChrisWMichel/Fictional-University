@@ -30,7 +30,7 @@
             ?>
             <ul>
               <li class="<?= is_page('about-us') ? 'current-menu-item' : ''; ?>"><a href="<?= site_url('/about-us'); ?>">About Us</a></li>
-              <li class="<?= is_page('programs') ? 'current-menu-item' : ''; ?>"><a href="#">Programs</a></li>
+              <li class="<?= is_post_type_archive('program') ? 'current-menu-item' : ''; ?>"><a href="<?= get_post_type_archive_link('program'); ?>">Programs</a></li>
               <li class="<?= (is_post_type_archive('event') || is_page('past-events')) ? 'current-menu-item' : ''; ?>"><a href="<?= get_post_type_archive_link('event'); ?>">Events</a></li>
               <li class="<?= is_page('campuses') ? 'current-menu-item' : ''; ?>"><a href="#">Campuses</a></li>
               <li class="<?= is_home() ? 'current-menu-item' : ''; ?>"><a href="<?= site_url('/blog'); ?>">Blog</a></li>
