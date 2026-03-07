@@ -1,0 +1,10 @@
+# Ignore WordPress theme files
+# --------------------------
+
+# Ignore theme assets
+/assets/
+/build/
+/node_modules/
+/src/
+/vendor/
+
