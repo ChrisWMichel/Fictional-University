@@ -12,15 +12,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/style.scss */ "./css/style.scss");
 /* harmony import */ var _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/MobileMenu */ "./src/modules/MobileMenu.js");
 /* harmony import */ var _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/HeroSlider */ "./src/modules/HeroSlider.js");
+/* harmony import */ var _modules_Search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Search */ "./src/modules/Search.js");
 
 
 // Our modules / classes
 
 
 
+
 // Instantiate a new object using our modules/classes
 var mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default"]();
 var heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
+const searchSite = new _modules_Search__WEBPACK_IMPORTED_MODULE_3__["default"]();
 
 /***/ },
 
@@ -94,6 +97,111 @@ class MobileMenu {
 
 /***/ },
 
+/***/ "./src/modules/Search.js"
+/*!*******************************!*\
+  !*** ./src/modules/Search.js ***!
+  \*******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class search {
+  constructor() {
+    this.resultsDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__results");
+    this.searchField = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-term");
+    this.isSpinnerVisible = false;
+    this.typingTimer;
+    this.previousValue;
+    this.openOverlay();
+    this.closeOverlay();
+    this.liveSearch();
+  }
+  openOverlay() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".js-search-trigger").on("click", () => {
+      this.showOverlay();
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keydown", e => {
+      if (e.ctrlKey && e.key === "s") {
+        e.preventDefault();
+        this.showOverlay();
+      }
+    });
+  }
+  showOverlay() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay").addClass("search-overlay--active");
+    document.getElementById("search-term").focus();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
+  }
+  closeOverlay() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close").on("click", () => {
+      this.hideOverlay();
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keydown", e => {
+      if (e.key === "Escape") {
+        this.hideOverlay();
+      }
+    });
+  }
+  hideOverlay() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay").removeClass("search-overlay--active");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
+  }
+  liveSearch() {
+    this.searchField.on("keyup", () => this.typingLogic());
+  }
+  typingLogic() {
+    if (this.searchField.val() !== this.previousValue) {
+      clearTimeout(this.typingTimer);
+      if (this.searchField.val()) {
+        if (!this.isSpinnerVisible) {
+          this.resultsDiv.html("<div class='spinner-loader'></div>");
+          this.isSpinnerVisible = true;
+        }
+        this.typingTimer = setTimeout(() => {
+          this.getResults();
+        }, 1000);
+      } else {
+        this.resultsDiv.html("");
+        this.isSpinnerVisible = false;
+      }
+    }
+    this.previousValue = this.searchField.val();
+  }
+  getResults() {
+    // $.ajax({
+    //     url: "/wp-json/wp/v2/search?term=" + this.searchField.val(),
+    //     type: "GET",
+    //     success: (data) => {
+    //         this.isSpinnerVisible = false;
+    //         this.resultsDiv.html(data)
+    //     }
+    // })
+
+    // fetch("/wp-json/wp/v2/search?term=" + this.searchField.val())
+    // .then(res => res.json())
+    // .then(data => {
+    //     this.isSpinnerVisible = false;
+    //     this.resultsDiv.html(data)
+    // })
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON("/wp-json/wp/v2/search?term=" + this.searchField.val(), data => {
+      this.isSpinnerVisible = false;
+      let html = data.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join("");
+      this.resultsDiv.html(`
+                <h2 class="search-overlay__section-title">Search Results</h2>
+                <ul class="link-list min-list">${html}</ul>`);
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (search);
+
+/***/ },
+
 /***/ "./css/style.scss"
 /*!************************!*\
   !*** ./css/style.scss ***!
@@ -103,6 +211,16 @@ class MobileMenu {
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ },
+
+/***/ "jquery"
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+(module) {
+
+module.exports = window["jQuery"];
 
 /***/ },
 
@@ -4077,6 +4195,18 @@ var Glide = /*#__PURE__*/function (_Core) {
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	

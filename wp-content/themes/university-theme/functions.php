@@ -68,5 +68,12 @@ function university_theme_setup() {
 
     add_action('pre_get_posts', 'university_adjust_queries');
 
+    function universityMapKey($api) {
+        $api['key'] = UNIVERSITY_MAP_KEY;
+        return $api;
+    }
+
+    add_filter('acf/fields/google_map/api', 'universityMapKey');
+
 
     
