@@ -5,5 +5,5 @@
 /assets/
 /node_modules/
 /vendor/
-/wp-config-private/
+wp-config-private
 
