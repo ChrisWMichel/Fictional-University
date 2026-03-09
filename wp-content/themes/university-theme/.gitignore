@@ -1,9 +1,0 @@
-# Ignore WordPress theme files
-# --------------------------
-
-# Ignore theme assets
-/assets/
-/node_modules/
-/vendor/
-wp-config-private
-

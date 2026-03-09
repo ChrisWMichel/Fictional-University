@@ -112,6 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class search {
   constructor() {
+    this.addSearchHTML();
     this.resultsDiv = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__results");
     this.searchField = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-term");
     this.isSpinnerVisible = false;
@@ -134,8 +135,9 @@ class search {
   }
   showOverlay() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay").addClass("search-overlay--active");
-    document.getElementById("search-term").focus();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
+    this.searchField.val("");
+    setTimeout(() => document.getElementById("search-term").focus(), 50);
   }
   closeOverlay() {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close").on("click", () => {
@@ -164,7 +166,7 @@ class search {
         }
         this.typingTimer = setTimeout(() => {
           this.getResults();
-        }, 1000);
+        }, 750);
       } else {
         this.resultsDiv.html("");
         this.isSpinnerVisible = false;
@@ -173,29 +175,58 @@ class search {
     this.previousValue = this.searchField.val();
   }
   getResults() {
-    // $.ajax({
-    //     url: "/wp-json/wp/v2/search?term=" + this.searchField.val(),
-    //     type: "GET",
-    //     success: (data) => {
-    //         this.isSpinnerVisible = false;
-    //         this.resultsDiv.html(data)
-    //     }
-    // })
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      url: "/wp-json/university/v1/search?term=" + encodeURIComponent(this.searchField.val()),
+      type: "GET",
+      success: data => {
+        this.resultsDiv.html(`
+                    <div class="row">
+                        <div class="one-third">
+                            <h2 class="search-overlay__section-title">General Information</h2>
+                        ${data.generalInfo.length ? `<ul class="link-list min-list">${data.generalInfo.map(item => `<li><a href="${item.permalink}">${item.title}</a> ${item.postType == 'post' ? `by ${item.authorName}` : ''} </li>`).join("")}</ul>` : `<p>No general information matches that search.</p>`}
+                    </div>
+                     <div class="one-third">
+                        <h2 class="search-overlay__section-title">Programs</h2>                       
+                        ${data.programs.length ? `<ul class="link-list min-list">${data.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No programs matches that search. View all <a href="/programs">programs</a></p>`} 
 
-    // fetch("/wp-json/wp/v2/search?term=" + this.searchField.val())
-    // .then(res => res.json())
-    // .then(data => {
-    //     this.isSpinnerVisible = false;
-    //     this.resultsDiv.html(data)
-    // })
+                         <h2 class="search-overlay__section-title">Professors</h2>
+                        ${data.professors.length ? `<ul class="link-list min-list">${data.professors.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No professors matches that search.</p>`}
+                    </div>
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">Campuses</h2>                        
+                        ${data.campuses.length ? `<ul class="link-list min-list">${data.campuses.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No campuses matches that search.</p>`}
 
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON("/wp-json/wp/v2/search?term=" + this.searchField.val(), data => {
-      this.isSpinnerVisible = false;
-      let html = data.map(item => `<li><a href="${item.url}">${item.title}</a></li>`).join("");
-      this.resultsDiv.html(`
-                <h2 class="search-overlay__section-title">Search Results</h2>
-                <ul class="link-list min-list">${html}</ul>`);
+                        <h2 class="search-overlay__section-title">Events</h2>
+                        ${data.events.length ? `<ul class="link-list min-list">${data.events.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No events matches that search.</p>`}
+                    </div>
+                   
+                </div>
+            `);
+        this.isSpinnerVisible = false;
+      },
+      error: () => {
+        this.resultsDiv.html("<p>Something went wrong. Please try again.</p>");
+        this.isSpinnerVisible = false;
+      }
     });
+  }
+  addSearchHTML() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").append(`
+            <div class="search-overlay">
+                <div class="search-overlay__top">
+                    <div class="container">
+                    <form action="${universityData.root_url}" method="get">
+                        <i class="fa fa-search search-overlay__icon" aria-hidden="true"></i>
+                        <input type="text" name="s" class="search-term" placeholder="What are you looking for?" id="search-term" autocomplete="off">
+                    </form>
+                    <i class="fa fa-window-close search-overlay__close" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="search-overlay__results"></div>
+                </div>
+            </div>
+            `);
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (search);
