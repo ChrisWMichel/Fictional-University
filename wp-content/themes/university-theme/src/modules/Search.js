@@ -90,14 +90,33 @@ class search {
                         ${data.programs.length ? `<ul class="link-list min-list">${data.programs.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No programs matches that search. View all <a href="/programs">programs</a></p>`} 
 
                          <h2 class="search-overlay__section-title">Professors</h2>
-                        ${data.professors.length ? `<ul class="link-list min-list">${data.professors.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No professors matches that search.</p>`}
+                        ${data.professors.length ? `<ul class="professor-cards">${data.professors.map(item => `<li class="professor-card__list-item">
+                            <a class="professor-card" href="${item.permalink}">
+                                <img class="professor-card__image" src="${item.image}" alt="A picture of ${item.title}">
+                                <span class="professor-card__name">${item.title}</span>
+                                
+                            </a>
+                            </li>`).join("")}</ul>` : `<p>No professors matches that search.</p>`}
                     </div>
                     <div class="one-third">
                         <h2 class="search-overlay__section-title">Campuses</h2>                        
                         ${data.campuses.length ? `<ul class="link-list min-list">${data.campuses.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No campuses matches that search.</p>`}
 
                         <h2 class="search-overlay__section-title">Events</h2>
-                        ${data.events.length ? `<ul class="link-list min-list">${data.events.map(item => `<li><a href="${item.permalink}">${item.title}</a></li>`).join("")}</ul>` : `<p>No events matches that search.</p>`}
+                        ${data.events.length ? `${data.events.map(item => `
+                            <div class="event-summary" >
+                        <a class="event-summary__date t-center" href="${item.permalink}">
+                            <span class="event-summary__month">${item.eventMonth}</span>
+                            <span class="event-summary__day">${item.eventDay}</span>
+                        </a>
+                        <div class="event-summary__content">
+                            <h5 class="event-summary__title headline headline--tiny"><a href="${item.permalink}">${item.title}</a></h5>
+                            <p>${item.excerpt} <a href="${item.permalink}" class="nu gray">Learn more</a></p>
+                        </div>
+                        <div class="generic-content">
+                        </div>
+                    </div>
+                            `).join("")}` : `<p>No events matches that search.</p>`}
                     </div>
                    
                 </div>

@@ -3,6 +3,8 @@
 function university_post_types() {
     // Campus post type
     register_post_type('campus', array(
+            'capability_type' => 'campus',
+            'map_meta_cap' => true,
             'supports' => array('title', 'editor', 'excerpt'),
             'rewrite' => array('slug' => 'campuses'),
             'has_archive' => true,
@@ -20,6 +22,8 @@ function university_post_types() {
 
     // Event post type 
         register_post_type('event', array(
+            'capability_type' => 'event',
+            'map_meta_cap' => true,
             'supports' => array('title', 'editor', 'excerpt'),
             'rewrite' => array('slug' => 'events'),
             'has_archive' => true,
@@ -70,3 +74,21 @@ function university_post_types() {
     }
 
     add_action('init', 'university_post_types');
+
+function university_add_event_caps() {
+    $admin = get_role('administrator');
+    $admin->add_cap('edit_event');
+    $admin->add_cap('read_event');
+    $admin->add_cap('delete_event');
+    $admin->add_cap('edit_events');
+    $admin->add_cap('edit_others_events');
+    $admin->add_cap('publish_events');
+    $admin->add_cap('read_private_events');
+    $admin->add_cap('delete_events');
+    $admin->add_cap('delete_private_events');
+    $admin->add_cap('delete_published_events');
+    $admin->add_cap('delete_others_events');
+    $admin->add_cap('edit_private_events');
+    $admin->add_cap('edit_published_events');
+}
+add_action('init', 'university_add_event_caps');
