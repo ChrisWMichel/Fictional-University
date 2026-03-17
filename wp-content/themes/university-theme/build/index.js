@@ -13,9 +13,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/MobileMenu */ "./src/modules/MobileMenu.js");
 /* harmony import */ var _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/HeroSlider */ "./src/modules/HeroSlider.js");
 /* harmony import */ var _modules_Search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Search */ "./src/modules/Search.js");
+/* harmony import */ var _modules_myNotes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/myNotes */ "./src/modules/myNotes.js");
+/* harmony import */ var _modules_Like__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/Like */ "./src/modules/Like.js");
 
 
 // Our modules / classes
+
+
 
 
 
@@ -24,6 +28,8 @@ __webpack_require__.r(__webpack_exports__);
 var mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default"]();
 var heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
 const searchSite = new _modules_Search__WEBPACK_IMPORTED_MODULE_3__["default"]();
+const MyNotes = new _modules_myNotes__WEBPACK_IMPORTED_MODULE_4__["default"]();
+const LikeProfessor = new _modules_Like__WEBPACK_IMPORTED_MODULE_5__["default"]();
 
 /***/ },
 
@@ -65,6 +71,24 @@ class HeroSlider {
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HeroSlider);
+
+/***/ },
+
+/***/ "./src/modules/Like.js"
+/*!*****************************!*\
+  !*** ./src/modules/Like.js ***!
+  \*****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class Like {
+  constructor() {}
+  events() {}
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Like);
 
 /***/ },
 
@@ -249,6 +273,145 @@ class search {
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (search);
+
+/***/ },
+
+/***/ "./src/modules/myNotes.js"
+/*!********************************!*\
+  !*** ./src/modules/myNotes.js ***!
+  \********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class myNotes {
+  constructor() {
+    this.events();
+  }
+  events() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.update-note').on('click', function () {
+      const noteId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('li').data('id');
+      const thisNote = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('li');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+        },
+        url: universityData.root_url + '/wp-json/wp/v2/note/' + noteId,
+        type: 'POST',
+        data: {
+          title: thisNote.find('.note-title').val(),
+          content: thisNote.find('.note-body').val()
+        },
+        success: response => {
+          thisNote.find('.edit-note').html('<i class="fa fa-pencil" aria-hidden="true"></i>');
+          thisNote.find('.note-title').attr('readonly', 'readonly');
+          thisNote.find('.note-body').attr('readonly', 'readonly');
+          thisNote.find('.update-note').removeClass('update-note--visible');
+          thisNote.find('.note-title').removeClass('note-active-field');
+          //console.log(response);
+        },
+        error: response => {
+          console.log('recordIDError: ' + noteId);
+          //console.log(response);
+        }
+      });
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.edit-note').on('click', function () {
+      const $thisNote = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('li');
+      var $noteTitle = $thisNote.find('.note-title').addClass('note-active-field');
+      var $noteBody = $thisNote.find('.note-body');
+      const $updateBtn = $thisNote.find('.update-note').addClass('update-note--visible');
+      if ($noteTitle.is('[readonly]')) {
+        $thisNote.find('.edit-note').html('<i class="fa fa-times" aria-hidden="true"></i> Cancel');
+        $noteTitle.removeAttr('readonly').trigger('focus');
+        $noteBody.removeAttr('readonly');
+      } else {
+        $thisNote.find('.edit-note').html('<i class="fa fa-pencil" aria-hidden="true"></i>');
+        $noteTitle.attr('readonly', 'readonly');
+        $noteBody.attr('readonly', 'readonly');
+        $updateBtn.removeClass('update-note--visible');
+        $noteTitle.removeClass('note-active-field');
+      }
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.delete-note').on('click', function () {
+      const noteId = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('li').data('id');
+      const thisNote = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).closest('li');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+        },
+        url: universityData.root_url + '/wp-json/wp/v2/note/' + noteId,
+        type: 'DELETE',
+        success: response => {
+          thisNote.slideUp();
+          if (response.userNoteCount < 5) {
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.note-limit-message').removeClass('active');
+          }
+        },
+        error: response => {
+          console.log('recordIDError: ' + noteId);
+          //console.log(response);
+        }
+      });
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.submit-note').on('click', function () {
+      const $newNoteTitle = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#new-note-title');
+      const $newNoteBody = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#new-note-body');
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+        beforeSend: xhr => {
+          xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+        },
+        url: universityData.root_url + '/wp-json/wp/v2/note',
+        type: 'POST',
+        data: {
+          title: $newNoteTitle.val(),
+          content: $newNoteBody.val(),
+          status: 'publish'
+        },
+        success: response => {
+          $newNoteTitle.val('');
+          $newNoteBody.val('');
+          // Optionally, you can prepend the new note to the list of notes
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('#my-notes').prepend(`
+                        <li data-id="${response.id}">
+                            <input class="note-title note-title-field" value="${response.title.rendered}" readonly>
+                            <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                            <span class="delete-note"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                            
+                            <textarea class="note-body note-body-field" readonly>${jquery__WEBPACK_IMPORTED_MODULE_0___default()('<div>').html(response.content.rendered).text()}</textarea>
+                         
+                            <span class="update-note btn btn--blue btn--small"><i style="padding-right: 5px;" class="fa fa-arrow-right" aria-hidden="true"></i>Update</span>
+                        </li>
+                    `);
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.create-note').slideUp();
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()('.create-note-link').removeClass('hidden');
+        },
+        error: response => {
+          if (response.responseText === 'You have reached your note limit.') {
+            jquery__WEBPACK_IMPORTED_MODULE_0___default()('.note-limit-message').addClass('active');
+          } else {
+            console.log('Error creating note');
+            console.log(response);
+          }
+        }
+      });
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.create-note-link').on('click', function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.create-note').slideToggle();
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.create-note-link').addClass('hidden');
+    });
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cancel-note').on('click', function () {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.create-note').slideUp();
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('.create-note-link').removeClass('hidden');
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (myNotes);
 
 /***/ },
 

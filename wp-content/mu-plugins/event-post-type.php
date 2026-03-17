@@ -71,10 +71,44 @@ function university_post_types() {
             ),
             'menu_icon' => 'dashicons-welcome-learn-more'
         ));
-    }
 
-    add_action('init', 'university_post_types');
+    // Notes Post Type
+        register_post_type('note', array(
+            'capability_type' => 'note',
+            'map_meta_cap' => true,
+            'show_in_rest' => true,
+            'supports' => array('title', 'editor'),
+            'public' => false,
+            'show_ui' => true,
+            'labels' => array(
+                'name' => 'Notes',
+                'add_new_item' => 'Add New Note',
+                'edit_item' => 'Edit Note',
+                'all_items' => 'All Notes',
+                'singular_name' => 'Note'
+            ),
+            'menu_icon' => 'dashicons-welcome-write-blog'
+        ));
 
+        // Likes Post Type
+        register_post_type('like', array(
+            'supports' => array('title'),
+            'public' => false,
+            'show_ui' => true,
+            'labels' => array(
+                'name' => 'Likes',
+                'add_new_item' => 'Add New Like',
+                'edit_item' => 'Edit Like',
+                'all_items' => 'All Likes',
+                'singular_name' => 'Like'
+            ),
+            'menu_icon' => 'dashicons-heart'
+        ));
+}
+
+add_action('init', 'university_post_types');
+
+    // This function is to add capabilities for the event post type to the administrator role.
 function university_add_event_caps() {
     $admin = get_role('administrator');
     $admin->add_cap('edit_event');
@@ -92,3 +126,5 @@ function university_add_event_caps() {
     $admin->add_cap('edit_published_events');
 }
 add_action('init', 'university_add_event_caps');
+
+    

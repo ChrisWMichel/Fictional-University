@@ -40,6 +40,7 @@
 
           <div class="site-header__util">
             <?php if(is_user_logged_in()): ?>
+              <a href="<?= esc_url(site_url('/my-notes')); ?>" class="btn btn--small btn--dark-orange float-left push-right">My Notes</a>
                 <a href="<?= wp_logout_url(); ?>" class="btn btn--small btn--orange float-left push-right btn--with-photo">
                   
                   <?php $avatarUrl = get_avatar_url(get_current_user_id(), array('size' => 60)); ?>
