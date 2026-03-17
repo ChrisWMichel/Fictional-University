@@ -84,9 +84,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
 class Like {
-  constructor() {}
-  events() {}
+  constructor() {
+    this.events();
+  }
+  events() {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".like-box").on("click", this.clickDispatcher.bind(this));
+  }
+  clickDispatcher(e) {
+    const currentLikeBox = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest(".like-box");
+    if (currentLikeBox.data('exists') == "yes") {
+      this.deleteLike(currentLikeBox);
+    } else {
+      this.createLike(currentLikeBox);
+    }
+  }
+  createLike(currentLikeBox) {
+    currentLikeBox.text("Liked");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      url: universityData.root_url + "/wp-json/university/v1/manageLike",
+      type: "POST",
+      data: {
+        "professorId": currentLikeBox.data('professor')
+      },
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+      },
+      success: response => {
+        currentLikeBox.data('exists', "yes");
+        let likeCount = parseInt(currentLikeBox.find(".like-count").text(), 10);
+        likeCount++;
+        currentLikeBox.find(".like-count").text(likeCount);
+        currentLikeBox.data('like', response);
+      },
+      error: response => {
+        currentLikeBox.text("Error");
+        console.log("There was an error creating the like.");
+        console.log(response);
+      }
+    });
+  }
+  deleteLike(currentLikeBox) {
+    currentLikeBox.text("Unliked");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      url: universityData.root_url + "/wp-json/university/v1/manageLike",
+      type: "DELETE",
+      data: {
+        "professorId": currentLikeBox.data('professor'),
+        "like": currentLikeBox.data('like')
+      },
+      beforeSend: xhr => {
+        xhr.setRequestHeader('X-WP-Nonce', universityData.nonce);
+      },
+      success: () => {
+        currentLikeBox.data('exists', "no");
+        var likeCount = parseInt(currentLikeBox.find(".like-count").text(), 10);
+        likeCount--;
+        currentLikeBox.find(".like-count").text(likeCount);
+      },
+      error: response => {
+        currentLikeBox.text("Error");
+        console.log("There was an error deleting the like.");
+        console.log(response);
+      }
+    });
+  }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Like);
 
