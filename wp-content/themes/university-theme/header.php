@@ -54,8 +54,9 @@
             <?php else: ?>
               <a href="<?= wp_login_url(); ?>" class="btn btn--small btn--orange float-left push-right">Login</a>
               <a href="<?= wp_registration_url(); ?>" class="btn btn--small btn--dark-orange float-left">Sign Up</a>
+              <?php endif; ?>
               <span class="search-trigger js-search-trigger"><i class="fa fa-search" aria-hidden="true"></i></span>
-            <?php endif; ?>
+            
             
           </div>
         </div>
