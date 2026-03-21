@@ -10,7 +10,9 @@ The search bar aggregates results from multiple WordPress post types:
 - Events
 - Professors
 - Campuses
-- Blog posts
+- Note taking
+- Word count plugin (loacated in settings)
+
 Results are displayed in a structured, multi‑column layout, making it easy to scan content by category.
 User‑Based “Like” Functionality
 Signed‑in users can “like” professor profiles.
@@ -48,11 +50,19 @@ The goal is to create a fully functional, modern WordPress site that demonstrate
 
 📸 Screenshots
 
-![Homepage](wp-content/images-screenshots/WP_University.jpg)
 *Homepage — header with navigation, search bar, and featured content section.*
+![Homepage](wp-content/images-screenshots/WP_University.jpg)
 
-![Admin](wp-content/images-screenshots/admin.jpg)
+
 *Admin dashboard showing custom plugin settings.*
+<img src="wp-content/images-screenshots/admin.jpg" alt="Admin" width="800">
 
-![Search Results](wp-content/images-screenshots/math.jpg)
+
 *Search results page showing multi-column layout.*
+![Search Results](wp-content/images-screenshots/math.jpg)
+
+*Word Count Plugin Settings.*
+![Word Count](wp-content/images-screenshots/word-count.jpg)
+
+*Word Count Plugin Admin Settings.*
+![Word Count Admin](wp-content/images-screenshots/word-coun-admin.jpg)

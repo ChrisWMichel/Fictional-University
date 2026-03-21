@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Word Count\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-21 21:19+0000\n"
+"PO-Revision-Date: 2026-03-21 21:21+0000\n"
+"Last-Translator: Chris\n"
+"Language-Team: Spanish (Mexico)\n"
+"Language: es_MX\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.3; wp-6.9.4; php-8.2.27\n"
+"X-Domain: cm-word-count"
+
+#. Description of the plugin
+msgid "A plugin to count words in posts."
+msgstr ""
+
+#: word-count.php:89
+msgid "characters"
+msgstr ""
+
+#. Author of the plugin
+msgid "Chris Michel"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://chris-michel.dev/"
+msgstr ""
+
+#: word-count.php:92
+msgid "It will take about"
+msgstr ""
+
+#: word-count.php:92
+msgid "minutes to read"
+msgstr ""
+
+#: word-count.php:89
+msgid "There are"
+msgstr ""
+
+#: word-count.php:86
+msgid "This post has"
+msgstr ""
+
+#. Name of the plugin
+#: word-count.php:152
+msgid "Word Count"
+msgstr ""
+
+#: word-count.php:86
+msgid "words"
+msgstr ""
