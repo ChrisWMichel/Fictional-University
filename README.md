@@ -1,7 +1,7 @@
 This project is a custom WordPress build created as part of my 2026 initiative to rebuild and modernize my WordPress development workflow. It includes six custom plugins, a multi‑source search system, and a user‑based “like” feature for professor profiles.
 
 🔧 Features
-Six Custom Plugins
+Seven Custom Plugins
 Each plugin was built from scratch to handle specific functionality within the site.
 
 Custom Multi‑Source Search System
@@ -11,7 +11,8 @@ The search bar aggregates results from multiple WordPress post types:
 - Professors
 - Campuses
 - Note taking
-- Word count plugin (loacated in settings)
+- Word count plugin (located in settings)
+- Word filter plugin
 
 Results are displayed in a structured, multi‑column layout, making it easy to scan content by category.
 User‑Based “Like” Functionality
@@ -53,16 +54,27 @@ The goal is to create a fully functional, modern WordPress site that demonstrate
 *Homepage — header with navigation, search bar, and featured content section.*
 ![Homepage](wp-content/images-screenshots/WP_University.jpg)
 
+<br>
 
-*Admin dashboard showing custom plugin settings.*
+*Admin dashboard showing 'must use' custom plugin settings.*
 <img src="wp-content/images-screenshots/admin.jpg" alt="Admin" width="800">
 
+<br>
 
 *Search results page showing multi-column layout.*
 ![Search Results](wp-content/images-screenshots/math.jpg)
 
+<br>
+
 *Word Count Plugin Settings.*
 ![Word Count](wp-content/images-screenshots/word-count.jpg)
 
+<br>
+
 *Word Count Plugin Admin Settings.*
 ![Word Count Admin](wp-content/images-screenshots/word-coun-admin.jpg)
+
+<br>
+
+*Word Filter Plugin Admin Settings.*
+![Word Filter Admin](wp-content/images-screenshots/word-filter.jpg)
