@@ -1,7 +1,7 @@
 This project is a custom WordPress build created as part of my 2026 initiative to rebuild and modernize my WordPress development workflow. It includes six custom plugins, a multi‑source search system, and a user‑based “like” feature for professor profiles.
 
 🔧 Features
-Seven Custom Plugins
+Eight Custom Plugins
 Each plugin was built from scratch to handle specific functionality within the site.
 
 Custom Multi‑Source Search System
@@ -10,9 +10,6 @@ The search bar aggregates results from multiple WordPress post types:
 - Events
 - Professors
 - Campuses
-- Note taking
-- Word count plugin (located in settings)
-- Word filter plugin
 
 Results are displayed in a structured, multi‑column layout, making it easy to scan content by category.
 User‑Based “Like” Functionality
@@ -23,6 +20,12 @@ This feature includes:
 - A clean UI indicator showing whether the user has already liked a professor
 - Secure logic preventing duplicate likes
 This adds an interactive, personalized element to the site and demonstrates custom database interaction within WordPress.
+I also implemented a custom Word Count plugin that allows users to input text and receive a word count, as well as a Word Filter plugin that enables users to specify words they want to filter out from their content.
+Logged in users can take notes that are saved to their profile. All the CRUD operations for the notes are handled through custom REST API endpoints, ensuring a seamless and secure user experience.
+
+Multiple choice questions are implemented using custom post types, allowing for easy management and display of quiz content.
+- Admin can add a quiz block to any page, which will display the multiple choice questions in an interactive format for users.
+
 Modern WordPress Development Practices
 - Custom post types
 - Custom taxonomies
@@ -78,3 +81,13 @@ The goal is to create a fully functional, modern WordPress site that demonstrate
 
 *Word Filter Plugin Admin Settings.*
 ![Word Filter Admin](wp-content/images-screenshots/word-filter.jpg)
+
+<br>
+
+*Adding a Quiz Block.*
+![Quiz Block Admin](wp-content/images-screenshots/quiz-admin.jpg)
+
+<br>
+
+*Quiz Block on the Frontend.*
+![Quiz Block Frontend](wp-content/images-screenshots/quiz-frontend.jpg)

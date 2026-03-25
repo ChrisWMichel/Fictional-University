@@ -1,0 +1,10 @@
+{
+    "apiVersion": 3,
+    "name": "quiz-cm-plugin/quiz-block",
+    "title": "Quiz Block",
+    
+    "editorScript": "file:./build/index.js",
+    "viewScript":  "file:./build/frontend.js",
+    "editorStyle": "file:./build/index.css",
+    "viewStyle":  "file:./build/frontend.css"
+}
