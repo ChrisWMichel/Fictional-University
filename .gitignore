@@ -1,0 +1,43 @@
+# Ignore WordPress core
+wp-admin/
+wp-includes/
+wp-content/languages/
+wp-content/languages/**
+
+# Ignore WordPress config and system files
+wp-config.php
+wp-config-private.php
+wp-config-sample.php
+.htaccess
+readme.html
+license.txt
+favicon.ico
+favicon.gif
+
+# Ignore default themes
+wp-content/themes/twentytwenty*/
+wp-content/themes/twentythirteen/
+wp-content/themes/twentyfourteen/
+wp-content/themes/twentyfifteen/
+wp-content/themes/twentysixteen/
+wp-content/themes/twentyseventeen/
+wp-content/themes/twentyeighteen/
+wp-content/themes/twentynineteen/
+
+# Ignore default plugins
+wp-content/plugins/akismet/
+wp-content/plugins/hello.php
+wp-content/plugins/dreamhost-panel-login.php
+
+# Ignore uploads
+wp-content/uploads/
+
+# Ignore Node and misc
+node_modules/
+commands.txt
+
+# Ignore OS/editor cruft
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
