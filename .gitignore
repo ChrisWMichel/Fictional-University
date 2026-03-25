@@ -35,6 +35,8 @@ wp-content/uploads/
 # Ignore Node and misc
 node_modules/
 commands.txt
+build/
+dist/
 
 # Ignore OS/editor cruft
 .DS_Store
