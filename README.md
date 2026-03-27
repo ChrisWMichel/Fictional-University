@@ -26,6 +26,8 @@ Logged in users can take notes that are saved to their profile. All the CRUD ope
 Multiple choice questions are implemented using custom post types, allowing for easy management and display of quiz content.
 - Admin can add a quiz block to any page, which will display the multiple choice questions in an interactive format for users.
 
+Professor profiles include a “related posts” section that dynamically pulls in content related to the professor, such as their department, events they are involved in, and other relevant information. This is achieved through custom queries and template logic.
+
 Modern WordPress Development Practices
 - Custom post types
 - Custom taxonomies
@@ -91,3 +93,12 @@ The goal is to create a fully functional, modern WordPress site that demonstrate
 
 *Quiz Block on the Frontend.*
 ![Quiz Block Frontend](wp-content/images-screenshots/quiz-frontend.jpg)
+
+<br>
+
+*Professor Feature Admin.*
+![Professor Feature Admin](wp-content/images-screenshots/professor-feature-admin.jpg)
+<br>
+
+*Professor Feature Frontend.*
+![Professor Feature Frontend](wp-content/images-screenshots/professor-feature-frontend.jpg)
